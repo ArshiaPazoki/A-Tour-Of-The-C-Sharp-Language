@@ -352,3 +352,48 @@ class Example
  * Forward declarations are never needed in C# because, with few exceptions, declaration order is insignificant.
  * C# doesn't limit a source file to declaring only one public type nor does it require the name of the source file to match a type declared in the source file.
  */
+
+// C# Types & Members
+
+/*
+ * As an object-oriented language, C# supports the concepts of encapsulation, inheritance, and polymorphism.
+ * A class may inherit directly from one parent class, and it may implement any number of interfaces.
+ * Methods that override virtual methods in a parent class require the override keyword as a way to avoid accidental redefinition.
+ * In C#, a struct is like a lightweight class; it's a stack-allocated type that can implement interfaces but doesn't support inheritance.
+ * C# provides record class and record struct types, which are types whose purpose is primarily storing data values.
+ */
+
+/*
+ * Classes & Objects
+ * Classes are the most fundamental of C#'s types.
+ * A class is a data structure that combines state (fields) and actions (methods and other function members) in a single unit.
+ * A class provides a definition for instances of the class, also known as objects.
+ * Classes support inheritance and polymorphism, mechanisms whereby derived classes can extend and specialize base classes.
+ * New classes are created using class declarations. A class declaration starts with a header. The header specifies:
+    * The attributes and modifiers of the class
+    * The name of the class
+    * The base class (when inheriting from a base class)
+    * The interfaces implemented by the class.
+ * The header is followed by the class body, which consists of a list of member declarations written between the delimiters { and }.
+ * The following code shows a declaration of a simple class named Point:
+ */
+public class Point
+{
+    public int X { get; }
+    public int Y { get; }
+
+    public Point(int x, int y) => (X, Y) = (x, y);
+}
+/*
+ * Instances of classes are created using the new operator, which allocates memory for a new instance,invokes a constructor to initialize the instance, and returns a reference to the instance.
+ * The following statements create two Point objects and store references to those objects in two variables:
+ */
+
+// var p1 = new Point(0, 0);
+
+// var p2 = new Point(10, 20);
+
+/*
+ * The memory occupied by an object is automatically reclaimed when the object is no longer reachable.
+ * It's not necessary or possible to explicitly deallocate objects in C#.
+ */
