@@ -397,3 +397,36 @@ public class Point
  * The memory occupied by an object is automatically reclaimed when the object is no longer reachable.
  * It's not necessary or possible to explicitly deallocate objects in C#.
  */
+
+/*
+ * Type Parameters
+ * 
+ * Generic classes define type parameters.
+ * Type parameters are a list of type parameter names enclosed in angle brackets.
+ * Type parameters follow the class name.
+ * The type parameters can then be used in the body of the class declarations to define the members of the class.
+ * In the following example, the type parameters of Pair are TFirst and TSecond:
+ */
+
+public class Pair<TFirst, TSecond>
+{
+    public TFirst First { get; }
+    public TSecond Second { get; }
+
+    public Pair(TFirst first, TSecond second) =>
+        (First, Second) = (first, second);
+}
+
+/*
+ * A class type that is declared to take type parameters is called a generic class type.
+ * Struct, interface, and delegate types can also be generic.
+ * When the generic class is used, type arguments must be provided for each of the type parameters:
+ */
+
+// var pair = new Pair<int, string>(1, "two");
+// int i = pair.First;     // TFirst int
+// string s = pair.Second; // TSecond string
+
+/*
+ * A generic type with type arguments provided, like Pair<int,string> above, is called a constructed type.
+ */
