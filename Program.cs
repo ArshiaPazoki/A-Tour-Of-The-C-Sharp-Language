@@ -430,3 +430,39 @@ public class Pair<TFirst, TSecond>
 /*
  * A generic type with type arguments provided, like Pair<int,string> above, is called a constructed type.
  */
+
+/*
+ * Base classes
+ * 
+ * A class declaration may specify a base class.
+ * Follow the class name and type parameters with a colon and the name of the base class.
+ * Omitting a base class specification is the same as deriving from type object.
+ * In the following example, the base class of Point3D is Point.
+ * From the first example, the base class of Point is object:
+ */
+
+public class Point3D : Point
+{
+    public int Z { get; set; }
+
+    public Point3D(int x, int y, int z) : base(x, y)
+    {
+        Z = z;
+    }
+}
+
+/*
+ * A class inherits the members of its base class.
+ * Inheritance means that a class implicitly contains almost all members of its base class.
+ * A class doesn't inherit the instance and static constructors, and the finalizer.
+ * A derived class can add new members to those members it inherits, but it can't remove the definition of an inherited member.
+ * In the previous example, Point3D inherits the X and Y members from Point, and every Point3D instance contains three properties, X, Y, and Z.
+ * 
+ * An implicit conversion exists from a class type to any of its base class types.
+ * A variable of a class type can reference an instance of that class or an instance of any derived class.
+ * For example, given the previous class declarations, a variable of type Point can reference either a Point or a Point3D:
+ */
+
+//Point a = new(10, 20);
+//Point b = new Point3D(10, 20, 30);
+
