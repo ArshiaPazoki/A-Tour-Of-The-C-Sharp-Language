@@ -212,10 +212,10 @@ class Hello
  * Values of reference types are treated as objects simply by viewing the values as type object.
  * Values of value types are treated as objects by performing boxing and unboxing operations.
  * In the following example, an int value is converted to object and back again to int.
-    int i = 123;
-    object o = i;    // Boxing
-    int j = (int)o;  // Unboxing
  */
+int i = 123;
+object o = i;    // Boxing
+int j = (int)o;  // Unboxing
 
 /*
  * When a value of a value type is assigned to an object reference, a "box" is allocated to hold the value.
@@ -389,9 +389,9 @@ public class Point
  * The following statements create two Point objects and store references to those objects in two variables:
  */
 
-// var p1 = new Point(0, 0);
+var p1 = new Point(0, 0);
 
-// var p2 = new Point(10, 20);
+var p2 = new Point(10, 20);
 
 /*
  * The memory occupied by an object is automatically reclaimed when the object is no longer reachable.
@@ -423,9 +423,9 @@ public class Pair<TFirst, TSecond>
  * When the generic class is used, type arguments must be provided for each of the type parameters:
  */
 
-// var pair = new Pair<int, string>(1, "two");
-// int i = pair.First;     // TFirst int
-// string s = pair.Second; // TSecond string
+var pair = new Pair<int, string>(1, "two");
+int i = pair.First;     // TFirst int
+string s = pair.Second; // TSecond string
 
 /*
  * A generic type with type arguments provided, like Pair<int,string> above, is called a constructed type.
@@ -463,6 +463,152 @@ public class Point3D : Point
  * For example, given the previous class declarations, a variable of type Point can reference either a Point or a Point3D:
  */
 
-//Point a = new(10, 20);
-//Point b = new Point3D(10, 20, 30);
+Point a = new(10, 20);
+Point b = new Point3D(10, 20, 30);
 
+/*
+ * Structs
+ * 
+ * Classes define types that support inheritance and polymorphism.
+ * They enable you to create sophisticated behaviors based on hierarchies of derived classes.
+ * By contrast, struct types are simpler types whose primary purpose is to store data values.
+ * Structs can't declare a base type; they implicitly derive from System.ValueType.
+ * You can't derive other struct types from a struct type.
+ * They're implicitly sealed.
+ */
+
+public struct Point4D
+{
+    public double X { get; }
+    public double Y { get; }
+
+    public Point4D(double x, double y) => (X, Y) = (x, y);
+}
+
+/*
+ * Interfaces
+ * 
+ * An interface defines a contract that can be implemented by classes and structs.
+ * You define an interface to declare capabilities that are shared among distinct types.
+ * For example, the System.Collections.Generic.IEnumerable<T> interface defines a consistent way to traverse all the items in a collection, such as an array.
+ * An interface can contain methods, properties, events, and indexers.
+ * An interface typically doesn't provide implementations of the members it defines—it merely specifies the members that must be supplied by classes or structs that implement the interface.
+ * Interfaces may employ multiple inheritance.
+ * In the following example, the interface IComboBox inherits from both ITextBox and IListBox.
+ */
+
+interface IControl
+{
+    void Paint();
+}
+
+interface ITextBox : IControl
+{
+    void SetText(string text);
+}
+
+interface IListBox : IControl
+{
+    void SetItems(string[] items);
+}
+
+interface IComboBox : ITextBox, IListBox { }
+
+/*
+ * Classes and structs can implement multiple interfaces.
+ * In the following example, the class EditBox implements both IControl and IDataBound.
+ */
+
+interface IDataBound
+{
+    void Bind(Binder b);
+}
+
+public class EditBox : IControl, IDataBound
+{
+    public void Paint() { }
+    public void Bind(Binder b) { }
+}
+
+/*
+ * When a class or struct implements a particular interface, instances of that class or struct can be implicitly converted to that interface type.
+ * For example :
+ */
+
+EditBox editBox = new();
+IControl control = editBox;
+IDataBound dataBound = editBox;
+
+/*
+ * An Enum type defines a set of constant values.
+ * The following enum declares constants that define different root vegetables:
+ */
+
+public enum SomeRootVegetable
+{
+    HorseRadish,
+    Radish,
+    Turnip
+}
+
+/*
+ * You can also define an enum to be used in combination as flags.
+ * The following declaration declares a set of flags for the four seasons.
+ * Any combination of the seasons may be applied, including an All value that includes all seasons:
+ */
+
+[Flags]
+public enum Seasons
+{
+    None = 0,
+    Summer = 1,
+    Autumn = 2,
+    Winter = 4,
+    Spring = 8,
+    All = Summer | Autumn | Winter | Spring
+}
+
+/*
+ * The following example shows declarations of both the preceding enums:
+ */
+
+var turnip = SomeRootVegetable.Turnip;
+
+var spring = Seasons.Spring;
+var startingOnEquinox = Seasons.Spring | Seasons.Autumn;
+var theYear = Seasons.All;
+
+/*
+ * Nullable types
+ * 
+ * Variables of any type may be declared as non-nullable or nullable.
+ * A nullable variable can hold an additional null value, indicating no value.
+ * Nullable Value types (structs or enums) are represented by System.Nullable<T>.
+ * Non-nullable and Nullable Reference types are both represented by the underlying reference type.
+ * The distinction is represented by metadata read by the compiler and some libraries.
+ * The compiler provides warnings when nullable references are dereferenced without first checking their value against null.
+ * The compiler also provides warnings when non-nullable references are assigned a value that may be null.
+ * The following example declares a nullable int, initializing it to null.
+ * Then, it sets the value to 5.
+ * It demonstrates the same concept with a nullable string.
+ * For more information, see nullable value types and nullable reference types.
+ */
+
+int? optionalInt = default;
+optionalInt = 5;
+string? optionalText = default;
+optionalText = "Hello World.";
+
+/*
+ * Tuples
+ * 
+ * C# supports tuples, which provides concise syntax to group multiple data elements in a lightweight data structure.
+ * You instantiate a tuple by declaring the types and names of the members between ( and ), as shown in the following example:
+ */
+
+(double Sum, int Count) t2 = (4.5, 3);
+Console.WriteLine($"Sum of {t2.Count} elements is {t2.Sum}.");  //Output:   Sum of 3 elements is 4.5.
+
+/*
+ * Tuples provide an alternative for data structure with multiple members, without using the building blocks described in the next article.
+ */
